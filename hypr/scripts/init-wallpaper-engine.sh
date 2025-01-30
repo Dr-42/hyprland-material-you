@@ -7,18 +7,24 @@ settings_file="$HOME/dotfiles/.settings/settings.json"
 wallpaper_engine=$(jq -r '.["wallpaper-engine"]' "$settings_file")
 
 if [ "$wallpaper_engine" == "swww" ]; then
-    # swww
-    echo ":: Using swww"
-    swww-daemon
-    swww-daemon --format xrgb
-    sleep 0.5
-    python -O ~/dotfiles/hypr/scripts/wallpaper.py -P
+  # swww
+  echo ":: Using swww"
+  swww-daemon
+  swww-daemon --format xrgb
+  sleep 0.5
+  python -O ~/dotfiles/hypr/scripts/wallpaper.py -P
 elif [ "$wallpaper_engine" == "hyprpaper" ]; then
-    # hyprpaper
-    echo ":: Using hyprpaper"
-    sleep 0.5
-    python -O ~/dotfiles/hypr/scripts/wallpaper.py -P
+  # hyprpaper
+  echo ":: Using hyprpaper"
+  sleep 0.5
+  python -O ~/dotfiles/hypr/scripts/wallpaper.py -P
 else
-    echo ":: Wallpaper Engine disabled"
-    python -O ~/dotfiles/hypr/scripts/wallpaper.py -P
+  echo ":: Wallpaper Engine disabled"
+  python -O ~/dotfiles/hypr/scripts/wallpaper.py -P
 fi
+
+# Loop to change wallpaper every 10 minutes
+while true; do
+  sleep 600
+  python -O ~/dotfiles/hypr/scripts/wallpaper.py -R
+done
